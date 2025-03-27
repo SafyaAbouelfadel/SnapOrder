@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Box, Button, TextField, Typography, Alert } from '@mui/material';
 
 function CreateCustomer() {
     const [name, setName] = useState('');
@@ -26,52 +27,83 @@ function CreateCustomer() {
             });
 
             if (!response.ok) {
-                const errorData = await response.json(); // Parse the error message from the backend
+                const errorData = await response.json();
                 throw new Error(errorData.error || 'Failed to create customer');
             }
 
             navigate('/customers');
         } catch (error) {
-            setError(error.message); // Set the error message to display in the UI
+            setError(error.message);
         }
     };
 
     return (
-        <div className="create-customer-page">
-            <h1>Create New Customer</h1>
-            {error && <div className="error-message">Error: {error}</div>}
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Name:</label>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Phone:</label>
-                    <input
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Address:</label>
-                    <textarea
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" style={{ padding: '10px 20px', backgroundColor: 'blue', color: 'white', border: 'none', cursor: 'pointer' }}>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '80vh',
+                padding: 2,
+            }}
+        >
+            <Typography variant="h4" gutterBottom>
+                Create New Customer
+            </Typography>
+            {error && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                    {error}
+                </Alert>
+            )}
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    width: '100%',
+                    maxWidth: 400,
+                }}
+            >
+                <TextField
+                    id="name"
+                    label="Name"
+                    variant="filled"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+                <TextField
+                    id="phone"
+                    label="Phone"
+                    variant="filled"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                />
+                <TextField
+                    id="address"
+                    label="Address"
+                    variant="filled"
+                    multiline
+                    rows={3}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                />
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={{ padding: '10px 20px' }}
+                >
                     Create Customer
-                </button>
-            </form>
-        </div>
+                </Button>
+            </Box>
+        </Box>
     );
 }
 
