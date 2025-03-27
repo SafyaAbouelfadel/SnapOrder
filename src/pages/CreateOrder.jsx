@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Box, Button, TextField, Typography, Alert } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'; // Import the upload icon
 
 function CreateOrder() {
     const [phone, setPhone] = useState('');
@@ -31,7 +33,8 @@ function CreateOrder() {
                 }),
             });
             if (!response.ok) {
-                throw new Error('Failed to create order');
+                const errorData = await response.json(); // Parse the error message from the backend
+                throw new Error(errorData.error || 'Failed to create order');
             }
             navigate('/orders');
         } catch (error) {
@@ -40,42 +43,74 @@ function CreateOrder() {
     };
 
     return (
-        <div className="create-order-page">
-            <h1>Create New Order</h1>
-            {error && <div className="error-message">Error: {error}</div>}
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Customer Phone:</label>
-                    <input
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Upload Photos:</label>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '80vh',
+                padding: 2,
+            }}
+        >
+            <Typography variant="h4" gutterBottom>
+                Create New Order
+            </Typography>
+            {error && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                    {error}
+                </Alert>
+            )}
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    width: '100%',
+                    maxWidth: 400,
+                }}
+            >
+                <TextField
+                    id="phone"
+                    label="Customer Phone"
+                    variant="filled"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                />
+                <Button
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<CloudUploadIcon />}
+                >
+                    Upload Photos
                     <input
                         type="file"
-                        multiple
-                        accept="image/*"
                         onChange={handlePhotoUpload}
+                        multiple
+                        hidden
                     />
-                </div>
-                <button
+                </Button>
+                {photos.length > 0 && (
+                    <Typography variant="body2" color="textSecondary">
+                        {photos.length} photo(s) selected
+                    </Typography>
+                )}
+                <Button
                     type="submit"
-                    style={{
-                        padding: '10px 20px',
-                        backgroundColor: 'blue',
-                        color: 'white',
-                        border: 'none',
-                        cursor: 'pointer',
-                    }}
+                    variant="contained"
+                    color="primary"
+                    sx={{ padding: '10px 20px' }}
                 >
                     Create Order
-                </button>
-            </form>
-        </div>
+                </Button>
+            </Box>
+        </Box>
     );
 }
 
