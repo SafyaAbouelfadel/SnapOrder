@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Orders</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Photo</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.customer_name }}</td>
+                    <td><img src="{{ url_for('static', filename='images/' + order.photo) }}" alt="Order Photo" width="100"></td>
+                    <td>{{ order.status }}</td>
+                    <td>
+                        <a href="{{ url_for('orders.view_order', order_id=order.id) }}">View</a>
+                        <a href="{{ url_for('orders.edit_order', order_id=order.id) }}">Edit</a>
+                        <a href="{{ url_for('orders.delete_order', order_id=order.id) }}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('orders.create_order') }}">Create New Order</a>
+    </div>
+</body>
+</html>

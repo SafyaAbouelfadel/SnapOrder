@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Web Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="min-h-screen">
+        <!-- Top Navigation Bar -->
+        <div class="top-nav">
+            <div class="nav-title">
+                <span>A Web Page</span>
+            </div>
+        </div>
+
+        <div class="layout">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <nav class="nav-menu">
+                    <button class="nav-button">
+                        <i data-lucide="layout-dashboard"></i>
+                        <span>Dashboard</span>
+                    </button>
+                    <button class="nav-button">
+                        <i data-lucide="package"></i>
+                        <span>Orders</span>
+                    </button>
+                    <button class="nav-button">
+                        <i data-lucide="users-2"></i>
+                        <span>Customers</span>
+                    </button>
+                    <button class="nav-button">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </button>
+                </nav>
+
+                <div class="bottom-icons">
+                    <i data-lucide="bell"></i>
+                    <i data-lucide="calendar"></i>
+                    <i data-lucide="users-2"></i>
+                    <i data-lucide="home"></i>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="filters">
+                    <select class="filter-select">
+                        <option value="all">Filter by name</option>
+                        <option value="pending">Pending</option>
+                        <option value="processed">Processed</option>
+                        <option value="delivered">Delivered</option>
+                    </select>
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Search" class="search-input">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID (Customer Name)</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Photo Preview</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="order-info">
+                                        <div class="order-id">#1023</div>
+                                        <div class="customer-name">John Doe</div>
+                                    </div>
+                                </td>
+                                <td>123-4567</td>
+                                <td>
+                                    <span class="status-badge status-pending">Pending</span>
+                                </td>
+                                <td>
+                                    <button class="view-button">View</button>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">
+                                            <i data-lucide="pencil"></i>
+                                        </button>
+                                        <button class="action-btn delete">
+                                            <i data-lucide="x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="order-info">
+                                        <div class="order-id">#1024</div>
+                                        <div class="customer-name">Jane Smith</div>
+                                    </div>
+                                </td>
+                                <td>987-6543</td>
+                                <td>
+                                    <span class="status-badge status-processed">Processed</span>
+                                </td>
+                                <td>
+                                    <button class="view-button">View</button>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">
+                                            <i data-lucide="pencil"></i>
+                                        </button>
+                                        <button class="action-btn delete">
+                                            <i data-lucide="x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="order-info">
+                                        <div class="order-id">#1025</div>
+                                        <div class="customer-name">Alex Carter</div>
+                                    </div>
+                                </td>
+                                <td>555-0199</td>
+                                <td>
+                                    <span class="status-badge status-delivered">Delivered</span>
+                                </td>
+                                <td>
+                                    <button class="view-button">View</button>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">
+                                            <i data-lucide="pencil"></i>
+                                        </button>
+                                        <button class="action-btn delete">
+                                            <i data-lucide="x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="order-info">
+                                        <div class="order-id">#1026</div>
+                                        <div class="customer-name">Emily White</div>
+                                    </div>
+                                </td>
+                                <td>321-7654</td>
+                                <td>
+                                    <span class="status-badge status-pending">Pending</span>
+                                </td>
+                                <td>
+                                    <button class="view-button">View</button>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">
+                                            <i data-lucide="pencil"></i>
+                                        </button>
+                                        <button class="action-btn delete">
+                                            <i data-lucide="x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
